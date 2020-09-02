@@ -1,0 +1,83 @@
+import com.cai.config.GlobalBuildConfig
+import com.cai.config.GlobalDependency
+
+plugins {
+    id "com.global.version"
+}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion GlobalBuildConfig.compileSdkVersion
+    buildToolsVersion GlobalBuildConfig.buildToolsVersion
+    defaultConfig {
+        applicationId GlobalBuildConfig.applicationId
+        minSdkVersion GlobalBuildConfig.minSdkVersion
+        targetSdkVersion GlobalBuildConfig.targetSdkVersion
+        versionCode GlobalBuildConfig.versionCode
+        versionName GlobalBuildConfig.versionName
+        testInstrumentationRunner GlobalDependency.Test.AndroidJUnitRunner
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation GlobalDependency.Google.kotlinStdlib
+    implementation GlobalDependency.Google.coreKtx
+    implementation GlobalDependency.Google.appcompat
+    implementation GlobalDependency.Google.constraintLayout
+    implementation GlobalDependency.Google.material
+    implementation GlobalDependency.Google.flexBox
+    implementation GlobalDependency.Google.navigationFragment
+    implementation GlobalDependency.Google.navigationFragmentKtx
+    implementation GlobalDependency.Google.viewpager2
+    implementation GlobalDependency.Google.recyclerView
+    implementation GlobalDependency.Google.lifecycleExtensions
+
+    implementation GlobalDependency.androidUtilCode
+    implementation GlobalDependency.magicIndicator
+    implementation GlobalDependency.immersionBar
+    implementation GlobalDependency.leakCanary
+    implementation GlobalDependency.multiType
+    implementation GlobalDependency.autoSize
+    implementation GlobalDependency.litePal
+
+    implementation GlobalDependency.Retrofit.retrofit2
+    implementation GlobalDependency.Retrofit.retrofit2ConverterGson
+
+    implementation GlobalDependency.OkHttp.loggingInterceptor
+
+    implementation GlobalDependency.Glide.glide
+    implementation GlobalDependency.Glide.transformations
+
+    implementation GlobalDependency.SmartRefreshLayout.kernel
+    implementation GlobalDependency.SmartRefreshLayout.headerClassics
+
+    implementation GlobalDependency.MaterialDialog.core
+    implementation GlobalDependency.MaterialDialog.files
+    implementation GlobalDependency.MaterialDialog.input
+    implementation GlobalDependency.MaterialDialog.color
+    implementation GlobalDependency.MaterialDialog.datetime
+    implementation GlobalDependency.MaterialDialog.bottomSheets
+
+    testImplementation GlobalDependency.Test.junit
+    androidTestImplementation GlobalDependency.Test.junitExt
+    androidTestImplementation GlobalDependency.Test.espressoCore
+}
